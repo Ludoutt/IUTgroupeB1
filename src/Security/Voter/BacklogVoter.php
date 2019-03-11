@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Pull your hearder here, for exemple, Licence header.
+ */
+
 namespace App\Security\Voter;
 
 use App\Entity\Backlog;
@@ -11,7 +15,7 @@ class BacklogVoter extends Voter
 {
     protected function supports($attribute, $subject)
     {
-        return in_array($attribute, ['VIEW', 'EDIT', 'DELETE'])
+        return \in_array($attribute, ['VIEW', 'EDIT', 'DELETE'], true)
             && $subject instanceof Backlog;
     }
 
