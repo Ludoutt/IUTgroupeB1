@@ -6,6 +6,7 @@ If work with Docker follow bellow (Docker for Symfony), else, just create a new 
   - run the dev server: bin/console server:run
   - apply migrations: bin/console doctrine:migrations:migrate
   - load fixtures: bin/console doctrine:fixtures:load
+  - compile assets : run "npm run build" 
   - Ready to rock !
 
 Follow the GitFlow practice:
