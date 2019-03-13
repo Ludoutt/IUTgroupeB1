@@ -22,6 +22,13 @@ Follow the GitFlow practice:
     - git checkout --track origin/feature/his-feature
     - git push (but dangerous if the owner push on his branch, separate job in different files, else just add a comment
     in GitHub) 
+    
+# Definiton of Done  
+Quelques règles pour le DoD : 
+  - Faire PHP-Lint avant la Pull Request
+  - Définir Create / Update Fixtures
+  - Faire un smoking testing
+  - En créant la Pull request, ajouter WIP devant le temps qu'elle soit en Work In progress, enlever le préfixe lorsqu'elle est complète.
 
 # Docker for Symfony
 A Docker base configuration for Symfony 4 application.
