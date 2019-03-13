@@ -1,0 +1,9 @@
+body {
+  background: red;
+}
+
+// Import Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+//Import other scss files
+@import "pages/_all";
