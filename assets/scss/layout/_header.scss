@@ -6,5 +6,10 @@
   padding-left: 160px;
   padding-right: 160px;
   background-color: #333333!important;
-  color: white;
+  .navbar-collapse {
+    justify-content: flex-end;
+  }
+  a {
+    color: white!important;
+  }
 }
