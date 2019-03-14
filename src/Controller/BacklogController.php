@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Backlog;
 use App\Form\BacklogType;
 use App\Repository\BacklogRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,6 +51,7 @@ class BacklogController extends AbstractController
 
     /**
      * @Route("/{id}", name="backlog_show", methods={"GET"})
+     * @IsGranted("SHOW", subject="backlog")
      */
     public function show(Backlog $backlog): Response
     {
@@ -60,6 +62,7 @@ class BacklogController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="backlog_edit", methods={"GET","POST"})
+     * @IsGranted("EDIT", subject="backlog")
      */
     public function edit(Request $request, Backlog $backlog): Response
     {
@@ -82,6 +85,7 @@ class BacklogController extends AbstractController
 
     /**
      * @Route("/{id}", name="backlog_delete", methods={"DELETE"})
+     * @IsGranted("DELETE", subject="backlog")
      */
     public function delete(Request $request, Backlog $backlog): Response
     {
