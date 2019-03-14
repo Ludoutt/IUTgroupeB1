@@ -1,5 +1,7 @@
 .sidebar {
+  min-height: calc(100vh - 92px);
   @media (max-width: 768px) {
+    min-height: inherit;
     width: 100%;
     padding: 15px 15px;
   }
