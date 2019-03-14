@@ -24,7 +24,7 @@ class BacklogControllerTest extends WebTestCase
         $client->request($httpMethod, $url, $parameters);
         $this->assertContains($client->getResponse()->getStatusCode(), [
             Response::HTTP_OK,
-            Response::HTTP_FOUND
+            Response::HTTP_FOUND,
         ]);
     }
 
