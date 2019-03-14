@@ -1,12 +1,14 @@
 # APP
-If work with Docker follow bellow (Docker for Symfony), else, just create a new `.env.local` file to override the 
-`DATABASE_URL`, Symfony read all files then, just set the key to override and keep other without copy.
+If you work with Docker see bellow (the Docker for Symfony part), else, just create a new `.env.local` file to override the 
+`DATABASE_URL`, Symfony read all .env files (just set the key to override and keep other without copy).
 
-  - Create .env.local file
-  - run the dev server: bin/console server:run
-  - apply migrations: bin/console doctrine:migrations:migrate
-  - load fixtures: bin/console doctrine:fixtures:load
-  - compile assets : run "npm run build" 
+  - Clone the project
+  - Create .env.local file, and set the database infos (not edit the .env file)
+  - Install dependencies: `composer install` and `npm install`
+  - Run the dev server: `bin/console server:run`
+  - Apply migrations: `bin/console doctrine:migrations:migrate`
+  - Load fixtures: `bin/console doctrine:fixtures:load`
+  - Compile assets: `npm run build` 
   - Ready to rock !
 
 Read it before contribute to the project (Ready Of Done):
