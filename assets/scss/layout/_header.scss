@@ -1,0 +1,15 @@
+.header {
+  @media (max-width: 768px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  padding-left: 160px;
+  padding-right: 160px;
+  background-color: #333333!important;
+  .navbar-collapse {
+    justify-content: flex-end;
+  }
+  a {
+    color: white!important;
+  }
+}
