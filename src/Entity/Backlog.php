@@ -6,6 +6,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -63,6 +65,16 @@ class Backlog
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $updatedBy;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Acceptation", mappedBy="backlog", orphanRemoval=true)
+     */
+    private $acceptations;
+
+    public function __construct()
+    {
+        $this->acceptations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -133,5 +145,36 @@ class Backlog
     public function getUpdatedBy()
     {
         return $this->updatedBy;
+    }
+
+    /**
+     * @return Collection|Acceptation[]
+     */
+    public function getAcceptations(): Collection
+    {
+        return $this->acceptations;
+    }
+
+    public function addAcceptation(Acceptation $acceptation): self
+    {
+        if (!$this->acceptations->contains($acceptation)) {
+            $this->acceptations[] = $acceptation;
+            $acceptation->setBacklog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAcceptation(Acceptation $acceptation): self
+    {
+        if ($this->acceptations->contains($acceptation)) {
+            $this->acceptations->removeElement($acceptation);
+            // set the owning side to null (unless already changed)
+            if ($acceptation->getBacklog() === $this) {
+                $acceptation->setBacklog(null);
+            }
+        }
+
+        return $this;
     }
 }

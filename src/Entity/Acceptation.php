@@ -26,6 +26,12 @@ class Acceptation
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Backlog", inversedBy="acceptations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $backlog;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +57,18 @@ class Acceptation
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getBacklog(): ?Backlog
+    {
+        return $this->backlog;
+    }
+
+    public function setBacklog(?Backlog $backlog): self
+    {
+        $this->backlog = $backlog;
 
         return $this;
     }

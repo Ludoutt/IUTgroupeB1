@@ -3,21 +3,28 @@
 namespace App\DataFixtures;
 
 use App\Entity\Acceptation;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class AcceptationFixtures extends Fixture
+class AcceptationFixtures extends BaseFixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    protected function loadData(ObjectManager $manager)
     {
-        // $product = new Product();
-        for($i=1; $i<=5; $i++){
-            $acceptation = new Acceptation();
-            $acceptation->setName('Acceptation '.$i);
-            $acceptation->setDescription('Description de l\'acception '.$i);
-            $manager->persist($acceptation);
-        }
+        $this->createMany(30, 'acceptations_', function ($i) use ($manager) {
+            $backlog = new Acceptation();
+            $backlog->setName(sprintf('acceptation %d', $i))
+                ->setDescription($this->faker->text)
+                ->setBacklog($this->getRandomReference('backlogs_'));
 
+            return $backlog;
+        });
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            BacklogFixture::class,
+        ];
     }
 }
