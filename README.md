@@ -9,24 +9,24 @@ If work with Docker follow bellow (Docker for Symfony), else, just create a new 
   - compile assets : run "npm run build" 
   - Ready to rock !
 
-Follow the GitFlow practice:
-  - Create a new branch for your features: git checkout -b feature/my-feature dev
-  - Before push but after commit, run `make lint-php`, this display php syntax errors, if there are errors, fix it or run
-  `lint lint-php-fix` to fix it. If you can't run Makefile (Windows), execute: `php -d memory_limit=1024m vendor/bin/php-cs-fixer fix --diff --dry-run --no-interaction -v`
-  or `php -d memory_limit=1024m vendor/bin/php-cs-fixer fix` instead.
-  - Push it on GitHub and open a new PR (From your branch to dev branch)
-  - Wait review before merge
-  
-  If you need to work on the branch of another person (pulled on GitHub):
-    - git fetch
-    - git checkout --track origin/feature/his-feature
-    - git push (but dangerous if the owner push on his branch, separate job in different files, else just add a comment
-    in GitHub) 
-    
-Definition of Done: 
-  - Define if Create or Update Fixtures
+Read it before contribute to the project (Ready Of Done):
+  - Create a new branch for your feature: `git checkout -b feature/my-feature dev`
+  - Always check the PHP code standard by running:
+    - `make lint-php`, to display php syntax errors
+    - `lint lint-php-fix` to fix it
+    - If you can't run Makefile (Windows), execute: 
+        - `php -d memory_limit=1024m vendor/bin/php-cs-fixer fix --diff --dry-run --no-interaction -v`
+        - `php -d memory_limit=1024m vendor/bin/php-cs-fixer fix`
+  - Create or Update fixtures
   - Add smoking testing
-  - When creating the Pull request, add WIP before the time it is in Work In progress, remove the prefix when it is complete.
+  - Push it on GitHub and open a new PR (From your branch to dev branch), if your feature is not ready to merge, add "WIP: " (Work In Progress)
+  - Wait review before merge
+
+  When you need to work on the branch of another person (pulled on GitHub):
+    - `git fetch`
+    - `git checkout --track origin/feature/his-feature`
+    - `git push` (but dangerous if the owner push on his branch, separate job in different files, else just add a comment
+    in GitHub) 
 
 # Docker for Symfony
 A Docker base configuration for Symfony 4 application.
