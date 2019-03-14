@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Pull your hearder here, for exemple, Licence header.
+ */
+
 namespace App\DataFixtures;
 
 use App\Entity\Backlog;
@@ -23,8 +27,8 @@ class BacklogFixture extends BaseFixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return array(
+        return [
             UserFixture::class,
-        );
+        ];
     }
 }
