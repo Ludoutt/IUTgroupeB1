@@ -11,7 +11,7 @@ If you work with Docker see bellow (the Docker for Symfony part), else, just cre
   - Compile assets: `npm run build` 
   - Ready to rock !
 
-Read it before contribute to the project (Ready Of Done):
+Read it before contribute to the project (Definition Of Done):
   - Create a new branch for your feature: `git checkout -b feature/my-feature dev`
   - Always check the PHP code standard by running:
     - `make lint-php`, to display php syntax errors
