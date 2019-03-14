@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Acceptation{% endblock %}
+
+{% block body %}
+    <h1>Edit Acceptation</h1>
+
+    {{ include('acceptation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('acceptation_index') }}">back to list</a>
+
+    {{ include('acceptation/_delete_form.html.twig') }}
+{% endblock %}
