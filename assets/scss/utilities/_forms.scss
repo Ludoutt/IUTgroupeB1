@@ -1,0 +1,9 @@
+input, textarea, select {
+  background-color: #999999!important;
+  color: black!important;
+  border-radius: 100px!important;
+  &:focus {
+    outline: none!important;
+    box-shadow: none!important;
+  }
+}

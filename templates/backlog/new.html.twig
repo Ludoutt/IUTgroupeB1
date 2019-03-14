@@ -3,9 +3,12 @@
 {% block title %}New Backlog{% endblock %}
 
 {% block body %}
-    <h1>Create new Backlog</h1>
+    <a href="{{ path('backlog_index') }}">
+        <button class="btn btn-warning mb-3">
+            <i class="fas fa-long-arrow-left"></i>Retour
+        </button>
+    </a>
+    <h3>Ajouter une fonctionnalité</h3>
 
     {{ include('backlog/_form.html.twig') }}
-
-    <a href="{{ path('backlog_index') }}">back to list</a>
 {% endblock %}

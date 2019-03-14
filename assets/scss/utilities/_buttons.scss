@@ -11,4 +11,13 @@ button{
       background-color: darken(#007bff, 10%);
     }
   }
+  &.btn-add-empty {
+    height: 50px;
+    width: 50px;
+    color: grey;
+    background-color: transparent;
+    text-align: center;
+    border: 2px dashed grey;
+    border-radius: 100%;
+  }
 }
