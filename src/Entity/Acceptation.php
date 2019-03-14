@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Pull your hearder here, for exemple, Licence header.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

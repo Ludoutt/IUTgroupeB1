@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Pull your hearder here, for exemple, Licence header.
+ */
+
 namespace App\Controller;
 
 use App\Entity\Acceptation;
@@ -32,7 +36,7 @@ class AcceptationController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('backlog_show', [
-                'id' => $acceptation->getBacklog()->getId()
+                'id' => $acceptation->getBacklog()->getId(),
             ]);
         }
 
@@ -54,7 +58,7 @@ class AcceptationController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('backlog_show', [
-                'id' => $acceptation->getBacklog()->getId()
+                'id' => $acceptation->getBacklog()->getId(),
             ]);
         }
 
