@@ -23,41 +23,93 @@
                 </div>
             </form>
         </div>
+
+        <div class="col text-right">
+            {% embed 'backlog/_delete_form.html.twig' %}
+                {% block buttons %}
+                    {{ parent() }}
+                    {% if is_granted('EDIT', backlog) %}
+                        <a class="btn btn-warning" href="{{ path('backlog_edit', {'id': backlog.id}) }}">Edit</a>
+                    {% endif %}
+                {% endblock %}
+            {% endembed %}
+        </div>
     </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ backlog.id }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                {% dump(backlog.status) %}
-                <td>{{ workflow_metadata(backlog, 'title', backlog.status) }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ backlog.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ backlog.description }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ backlog.type }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ backlog.id }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    {% dump(backlog.status) %}
+                    <td>{{ workflow_metadata(backlog, 'title', backlog.status) }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ backlog.name }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ backlog.description }}</td>
+                </tr>
+                <tr>
+                    <th>Type</th>
+                    <td>{{ backlog.type }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <a href="{{ path('backlog_index') }}">back to list</a>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            Critères d'acceptations
+                        </div>
+                        <div class="col text-right">
+                            <a class="btn btn-primary rounded-circle" href="{{ path('acceptation_new', { 'id': backlog.id }) }}">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Critère</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                        </thead>
 
-    {% if is_granted('EDIT', backlog) %}
-        <a href="{{ path('backlog_edit', {'id': backlog.id}) }}">edit</a>
-    {% endif %}
-
-    {% if is_granted('DELETE', backlog) %}
-        {{ include('backlog/_delete_form.html.twig') }}
-    {% endif %}
+                        <tbody>
+                        {% for acceptation in backlog.acceptations %}
+                            <tr>
+                                <td>{{ acceptation.name }}</td>
+                                <td>{{ acceptation.description }}</td>
+                                <td class="text-right">
+                                    {% embed 'acceptation/_delete_form.html.twig' %}
+                                        {% block buttons %}
+                                            {{ parent() }}
+                                            <a class="btn btn-warning" href="{{ path('acceptation_edit', {'id': acceptation.id}) }}">Modifier</a>
+                                        {% endblock %}
+                                    {% endembed %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
