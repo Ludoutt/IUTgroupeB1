@@ -14,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Workflow\Exception\TransitionException;
+use Symfony\Component\Workflow\Registry;
 
 /**
  * @Route("/backlog")
@@ -128,5 +130,34 @@ class BacklogController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
 
         return $this->redirectToRoute('backlog_index');
+    }
+
+    /**
+     * @Route("/apply-transition/{id}", methods={"POST"}, name="backlog_apply_transition")
+     */
+    public function applyTransitionAction(Request $request, Backlog $backlog, Registry $workflows)
+    {
+        $workflow = $workflows->get($backlog);
+
+        try {
+            $workflow->apply($backlog, $request->request->get('transition'));
+
+            $this->getDoctrine()->getManager()->flush();
+        } catch (TransitionException $exception) {
+            $this->addFlash('danger', $exception->getMessage());
+        }
+
+        return $this->redirectToRoute('backlog_show', ['id' => $backlog->getId()]);
+    }
+
+    /**
+     * @Route("/reset-marking/{id}", methods={"POST"}, name="backlog_reset_marking")
+     */
+    public function resetMarkingAction(Backlog $backlog)
+    {
+        $backlog->setStatus([]);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('backlog_show', ['id' => $backlog->getId()]);
     }
 }

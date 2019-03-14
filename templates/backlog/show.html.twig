@@ -5,11 +5,36 @@
 {% block body %}
     <h1>Backlog</h1>
 
+    <div class="row mb-3">
+        <div class="col-2">
+            <form action="{{ path('backlog_reset_marking', {id: backlog.id}) }}" method="post" class="form-inline">
+                <button type="submit" class="btn btn-danger btn-xs">Reset status</button>
+            </form>
+        </div>
+
+        <div class="col">
+            <form action="{{ path('backlog_apply_transition', {id: backlog.id}) }}" method="post">
+                <div class="btn-group-vertical" role="group">
+                    {% for transition in workflow_transitions(backlog) %}
+                        <button type="submit" name="transition" value="{{ transition.name }}" class="btn btn-primary">
+                            {{ workflow_metadata(backlog, 'title', transition) }}
+                        </button>
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+    </div>
+
     <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ backlog.id }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                {% dump(backlog.status) %}
+                <td>{{ workflow_metadata(backlog, 'title', backlog.status) }}</td>
             </tr>
             <tr>
                 <th>Name</th>

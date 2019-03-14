@@ -46,6 +46,11 @@ class Backlog
     private $position;
 
     /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $status;
+
+    /**
      * @Gedmo\Blameable(on="create")
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(referencedColumnName="id")
@@ -108,6 +113,16 @@ class Backlog
     public function getPosition()
     {
         return $this->position;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     public function getCreatedBy()

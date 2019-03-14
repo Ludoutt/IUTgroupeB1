@@ -12,6 +12,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Type</th>
+                <th>Status</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,6 +23,10 @@
                 <td>{{ backlog.name }}</td>
                 <td>{{ backlog.description }}</td>
                 <td>{{ backlog.type }}</td>
+                <td>
+                    {% set places = workflow_marked_places(backlog) %}
+                    {{ workflow_metadata(backlog, 'title', backlog.status) }}
+                </td>
                 <td>
                     {% if is_granted('MOVE', backlog) %}
                         <a href="{{ path('backlog_move_up', {'id': backlog.id}) }}">
