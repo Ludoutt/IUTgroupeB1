@@ -1,0 +1,36 @@
+.backlog {
+  padding: 10px;
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  .backlog__nav {
+    margin-bottom: 40px!important;
+    .nav-item {
+      @media (max-width: 768px) {
+        width: 100%;
+        text-align: center;
+      }
+      margin-right: 10px;
+    }
+  }
+  .backlog__tab__content__pane {
+    @media (max-width: 768px) {
+      padding: 0px;
+    }
+    padding-right: 100px;
+  }
+  .backlog__list {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    background-color: #999999;
+    margin-bottom: 15px;
+    padding: 13px 10px;
+    border-radius: 10px;
+    .backlog__list__right {
+      a {
+        color: white;
+        text-decoration: none;
+      }
+    }
+  }
+}
