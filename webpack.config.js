@@ -39,7 +39,7 @@ Encore
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.scss)
-    .enableVersioning(Encore.isProduction())
+    .enableVersioning()
 
     // enables Sass/SCSS support
     .enableSassLoader(function(options) {}, {
