@@ -36,6 +36,12 @@ class Backlog
     private $type;
 
     /**
+     * @Gedmo\SortablePosition()
+     * @ORM\Column(type="integer")
+     */
+    private $position;
+
+    /**
      * @Gedmo\Blameable(on="create")
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(referencedColumnName="id")
@@ -88,6 +94,16 @@ class Backlog
         $this->type = $type;
 
         return $this;
+    }
+
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    }
+
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     public function getCreatedBy()

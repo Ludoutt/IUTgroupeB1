@@ -3,9 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\Backlog;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class BacklogFixture extends BaseFixture
+class BacklogFixture extends BaseFixture implements DependentFixtureInterface
 {
     protected function loadData(ObjectManager $manager)
     {
@@ -18,5 +19,12 @@ class BacklogFixture extends BaseFixture
             return $backlog;
         });
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            UserFixture::class,
+        );
     }
 }

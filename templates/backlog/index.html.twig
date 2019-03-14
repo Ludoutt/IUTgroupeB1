@@ -23,6 +23,14 @@
                 <td>{{ backlog.description }}</td>
                 <td>{{ backlog.type }}</td>
                 <td>
+                    {% if is_granted('MOVE', backlog) %}
+                        <a href="{{ path('backlog_move_up', {'id': backlog.id}) }}">
+                            <i class="fas fa-arrow-up"></i>
+                        </a>
+                        <a href="{{ path('backlog_move_down', {'id': backlog.id}) }}">
+                            <i class="fas fa-arrow-down"></i>
+                        </a>
+                    {% endif %}
                     {% if is_granted('SHOW', backlog) %}
                         <a href="{{ path('backlog_show', {'id': backlog.id}) }}">show</a>
                     {% endif %}

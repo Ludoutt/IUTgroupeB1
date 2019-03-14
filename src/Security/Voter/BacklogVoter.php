@@ -23,7 +23,7 @@ class BacklogVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        return \in_array($attribute, ['SHOW', 'EDIT', 'DELETE'], true)
+        return \in_array($attribute, ['SHOW', 'EDIT', 'DELETE', 'MOVE'], true)
             && $subject instanceof Backlog;
     }
 
@@ -43,6 +43,9 @@ class BacklogVoter extends Voter
                 return true;
                 break;
             case 'DELETE':
+                return true;
+                break;
+            case 'MOVE':
                 return true;
                 break;
         }

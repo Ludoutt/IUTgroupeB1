@@ -22,7 +22,7 @@ class BacklogController extends AbstractController
     public function index(BacklogRepository $backlogRepository): Response
     {
         return $this->render('backlog/index.html.twig', [
-            'backlogs' => $backlogRepository->findAll(),
+            'backlogs' => $backlogRepository->findBy([], ['position' => 'ASC']),
         ]);
     }
 
@@ -94,6 +94,34 @@ class BacklogController extends AbstractController
             $entityManager->remove($backlog);
             $entityManager->flush();
         }
+
+        return $this->redirectToRoute('backlog_index');
+    }
+
+    /**
+     * @Route("/{id}/move-up", name="backlog_move_up", methods={"GET"})
+     * @IsGranted("MOVE", subject="backlog")
+     */
+    public function moveUp(Backlog $backlog): Response
+    {
+        if (0 !== $backlog->getPosition()) {
+            $backlog->setPosition($backlog->getPosition() - 1);
+
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+        return $this->redirectToRoute('backlog_index');
+    }
+
+    /**
+     * @Route("/{id}/move-down", name="backlog_move_down", methods={"GET"})
+     * @IsGranted("MOVE", subject="backlog")
+     */
+    public function moveDown(Backlog $backlog): Response
+    {
+        $backlog->setPosition($backlog->getPosition() + 1);
+
+        $this->getDoctrine()->getManager()->flush();
 
         return $this->redirectToRoute('backlog_index');
     }
