@@ -23,7 +23,7 @@ use Symfony\Component\Workflow\Registry;
 class BacklogController extends AbstractController
 {
     /**
-     * @Route("/", name="backlog_index", methods={"GET"})
+     * @Route("", name="backlog_index", methods={"GET"})
      */
     public function index(BacklogRepository $backlogRepository): Response
     {
@@ -151,9 +151,9 @@ class BacklogController extends AbstractController
     }
 
     /**
-     * @Route("/reset-marking/{id}", methods={"POST"}, name="backlog_reset_marking")
+     * @Route("/reset-status/{id}", methods={"POST"}, name="backlog_reset_marking")
      */
-    public function resetMarkingAction(Backlog $backlog)
+    public function resetStatusAction(Backlog $backlog)
     {
         $backlog->setStatus([]);
         $this->getDoctrine()->getManager()->flush();
