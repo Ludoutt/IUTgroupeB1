@@ -8,7 +8,13 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% include 'layout/header.html.twig' %}
+        <div class="wrapper d-flex">
+            {% include 'layout/nav_sidebar.html.twig' %}
+            <div class="content | w-100">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
