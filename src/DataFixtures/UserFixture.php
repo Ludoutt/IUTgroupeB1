@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Pull your hearder here, for exemple, Licence header.
+ */
+
 namespace App\DataFixtures;
 
 use App\Entity\User;
@@ -17,7 +21,7 @@ class UserFixture extends BaseFixture
 
     protected function loadData(ObjectManager $manager)
     {
-        $this->createMany(6, 'developer_users', function($i) use ($manager) {
+        $this->createMany(6, 'developer_users', function ($i) use ($manager) {
             $user = new User();
             $user->setEmail(sprintf('developer%d@domain.tld', $i))
                 ->setFirstName($this->faker->firstName)
@@ -33,7 +37,7 @@ class UserFixture extends BaseFixture
             return $user;
         });
 
-        $this->createMany(1, 'product_owner_users', function($i) use ($manager) {
+        $this->createMany(1, 'product_owner_users', function ($i) use ($manager) {
             $user = new User();
             $user->setEmail(sprintf('product-owner%d@domain.tld', $i))
                 ->setFirstName($this->faker->firstName)
@@ -49,7 +53,7 @@ class UserFixture extends BaseFixture
             return $user;
         });
 
-        $this->createMany(1, 'scrum_master_users', function($i) use ($manager) {
+        $this->createMany(1, 'scrum_master_users', function ($i) use ($manager) {
             $user = new User();
             $user->setEmail(sprintf('scrum-master%d@domain.tld', $i))
                 ->setFirstName($this->faker->firstName)

@@ -1,0 +1,87 @@
+framework:
+    workflows:
+        backlog:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'single_state'
+                arguments:
+                    - 'status'
+            supports:
+                - App\Entity\Backlog
+            initial_place: suggested
+            places:
+                suggested:
+                    metadata:
+                        title: Suggéré
+                accepted:
+                    metadata:
+                        title: Accepté
+                estimated:
+                    metadata:
+                        title: Estimé
+                planned:
+                    metadata:
+                        title: Planifié
+                in_progress:
+                    metadata:
+                        title: En cours
+                in_validation:
+                    metadata:
+                        title: En validation
+                finished:
+                    metadata:
+                        title: Terminé
+                abandoned:
+                    metadata:
+                        title: Abandonné
+            transitions:
+                accept:
+                    guard: "is_fully_authenticated()"
+                    from: suggested
+                    to:   accepted
+                    metadata:
+                        title: Accepter
+                estimate:
+                    guard: "is_fully_authenticated()"
+                    from: accepted
+                    to:   estimated
+                    metadata:
+                        title: Estimer
+                plan:
+                    guard: "is_fully_authenticated()"
+                    from: estimated
+                    to:   planned
+                    metadata:
+                        title: Planifier
+                to_do:
+                    guard: "is_fully_authenticated()"
+                    from: planned
+                    to:   in_progress
+                    metadata:
+                        title: A faire
+                to_validate:
+                    guard: "is_fully_authenticated()"
+                    from: in_progress
+                    to:   in_validation
+                    metadata:
+                        title: A valider
+                finish:
+                    guard: "is_fully_authenticated()"
+                    from: in_validation
+                    to:   finished
+                    metadata:
+                        title: Terminer
+                abandon:
+                    guard: "is_fully_authenticated()"
+                    from:
+                        - suggested
+                        - accepted
+                        - estimated
+                        - planned
+                        - in_progress
+                        - in_validation
+                    to:   abandoned
+                    metadata:
+                        title: Abandonner
