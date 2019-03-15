@@ -3,54 +3,104 @@
 {% block title %}Backlog index{% endblock %}
 
 {% block body %}
-    <h1>Backlog index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for backlog in backlogs %}
-            <tr>
-                <td>{{ backlog.id }}</td>
-                <td>{{ backlog.name }}</td>
-                <td>{{ backlog.description }}</td>
-                <td>{{ backlog.type }}</td>
-                <td>
-                    {% set places = workflow_marked_places(backlog) %}
-                    {{ workflow_metadata(backlog, 'title', backlog.status) }}
-                </td>
-                <td>
-                    {% if is_granted('MOVE', backlog) %}
-                        <a href="{{ path('backlog_move_up', {'id': backlog.id}) }}">
-                            <i class="fas fa-arrow-up"></i>
+    <div class="backlog">
+        <ul class="backlog__nav nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-backlog-tab" data-toggle="pill" href="#pills-backlog" role="tab"
+                   aria-controls="pills-home" aria-selected="true">Backlog Product</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-sprint-progress-tab" data-toggle="pill" href="#pills-sprint-progress"
+                   role="tab" aria-controls="pills-profile" aria-selected="false">Srint in progress</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-list-tab" data-toggle="pill" href="#pills-list" role="tab"
+                   aria-controls="pills-contact" aria-selected="false">Sprint list</a>
+            </li>
+        </ul>
+        <div class="backlog__tab-content tab-content" id="pills-tabContent">
+            <div class="backlog__tab__content__pane tab-pane fade show active" id="pills-backlog" role="tabpanel"
+                 aria-labelledby="pills-backlog-tab">
+                <ul>
+                    <div class="d-flex justify-content-between mb-3">
+                        <h3>Backlog index</h3>
+                        <a href="{{ path('backlog_new') }}">
+                            <button class="btn-round">
+                                <i class="fas fa-plus"></i>
+                            </button>
                         </a>
-                        <a href="{{ path('backlog_move_down', {'id': backlog.id}) }}">
-                            <i class="fas fa-arrow-down"></i>
-                        </a>
-                    {% endif %}
-                    {% if is_granted('SHOW', backlog) %}
-                        <a href="{{ path('backlog_show', {'id': backlog.id}) }}">show</a>
-                    {% endif %}
-                    {% if is_granted('EDIT', backlog) %}
-                        <a href="{{ path('backlog_edit', {'id': backlog.id}) }}">edit</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('backlog_new') }}">Create new</a>
+                    </div>
+                    {% for backlog in backlogs %}
+                        <li class="backlog__list">
+                            <a class="w-100" href="{{ path('backlog_show', {'id': backlog.id}) }}">
+                                <div class="backlog__list__left">{{ backlog.name }}</div>
+                            </a>
+                            <div class="backlog__list__right">
+                                {% if is_granted('MOVE', backlog) %}
+                                    <div>
+                                        <a href="{{ path('backlog_move_up', {'id': backlog.id}) }}">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </a>
+                                        <a href="{{ path('backlog_move_down', {'id': backlog.id}) }}">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="pills-sprint-progress" role="tabpanel"
+                 aria-labelledby="pills-sprint-progress-tab">...
+            </div>
+            <div class="tab-pane fade" id="pills-list" role="tabpanel" aria-labelledby="pills-list-tab">...</div>
+        </div>
+    </div>
+    {#<table class="table">#}
+    {#<thead>#}
+    {#<tr>#}
+    {#<th>Id</th>#}
+    {#<th>Name</th>#}
+    {#<th>Description</th>#}
+    {#<th>Type</th>#}
+    {#<th>Status</th>#}
+    {#<th>actions</th>#}
+    {#</tr>#}
+    {#</thead>#}
+    {#<tbody>#}
+    {#{% for backlog in backlogs %}#}
+    {#<tr>#}
+    {#<td>{{ backlog.id }}</td>#}
+    {#<td>{{ backlog.name }}</td>#}
+    {#<td>{{ backlog.description }}</td>#}
+    {#<td>{{ backlog.type }}</td>#}
+    {#<td>#}
+    {#{% set places = workflow_marked_places(backlog) %}#}
+    {#{{ workflow_metadata(backlog, 'title', backlog.status) }}#}
+    {#</td>#}
+    {#<td>#}
+    {#{% if is_granted('MOVE', backlog) %}#}
+    {#<a href="{{ path('backlog_move_up', {'id': backlog.id}) }}">#}
+    {#<i class="fas fa-arrow-up"></i>#}
+    {#</a>#}
+    {#<a href="{{ path('backlog_move_down', {'id': backlog.id}) }}">#}
+    {#<i class="fas fa-arrow-down"></i>#}
+    {#</a>#}
+    {#{% endif %}#}
+    {#{% if is_granted('SHOW', backlog) %}#}
+    {#<a href="{{ path('backlog_show', {'id': backlog.id}) }}">show</a>#}
+    {#{% endif %}#}
+    {#{% if is_granted('EDIT', backlog) %}#}
+    {#<a href="{{ path('backlog_edit', {'id': backlog.id}) }}">edit</a>#}
+    {#{% endif %}#}
+    {#</td>#}
+    {#</tr>#}
+    {#{% else %}#}
+    {#<tr>#}
+    {#<td colspan="5">no records found</td>#}
+    {#</tr>#}
+    {#{% endfor %}#}
+    {#</tbody>#}
+    {#</table>#}
 {% endblock %}

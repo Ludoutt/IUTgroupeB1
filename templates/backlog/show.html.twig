@@ -3,8 +3,10 @@
 {% block title %}Backlog{% endblock %}
 
 {% block body %}
-    <h1>Backlog</h1>
-
+    <h1 class="mb-4">{{ backlog.name|capitalize }}</h1>
+    <a href="{{ path('backlog_index') }}">
+        <button class="btn btn-info mb-3">Retour</button>
+    </a>
     <div class="row mb-3">
         <div class="col-2">
             <form action="{{ path('backlog_reset_marking', {id: backlog.id}) }}" method="post" class="form-inline">
@@ -38,11 +40,11 @@
 
     <div class="row">
         <div class="col">
-            <table class="table">
+            <table class="table mb-4">
                 <tbody>
                 <tr>
-                    <th>Id</th>
-                    <td>{{ backlog.id }}</td>
+                    <th>Name</th>
+                    <td>{{ backlog.name|upper }}</td>
                 </tr>
                 <tr>
                     <th>Status</th>
@@ -50,16 +52,12 @@
                     <td>{{ workflow_metadata(backlog, 'title', backlog.status) }}</td>
                 </tr>
                 <tr>
-                    <th>Name</th>
-                    <td>{{ backlog.name }}</td>
-                </tr>
-                <tr>
                     <th>Description</th>
                     <td>{{ backlog.description }}</td>
                 </tr>
                 <tr>
                     <th>Type</th>
-                    <td>{{ backlog.type }}</td>
+                    <td class="{{ backlog.type == 'bug' ? 'text-danger' : backlog.type == 'technical_task' ? 'text-warning' : 'text-success' }}">{{ backlog.type }}</td>
                 </tr>
                 </tbody>
             </table>

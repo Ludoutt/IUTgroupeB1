@@ -1,5 +1,7 @@
 .sidebar {
+  min-height: calc(100vh - 92px);
   @media (max-width: 768px) {
+    min-height: inherit;
     width: 100%;
     padding: 15px 15px;
   }
@@ -23,8 +25,8 @@
       }
       margin-left: auto;
       margin-right: auto;
-      height: 87px;
-      width: 87px;
+      height: 60px;
+      width: 60px;
       overflow: hidden;
       border-radius: 100%;
       position: relative;

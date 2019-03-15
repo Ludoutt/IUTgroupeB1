@@ -1,0 +1,23 @@
+button{
+  &.btn-round {
+    height: 50px;
+    width: 50px;
+    color: white;
+    background-color: #007bff;
+    text-align: center;
+    border-radius: 100%;
+    border: 0px;
+    &:hover, &:focus {
+      background-color: darken(#007bff, 10%);
+    }
+  }
+  &.btn-add-empty {
+    height: 50px;
+    width: 50px;
+    color: grey;
+    background-color: transparent;
+    text-align: center;
+    border: 2px dashed grey;
+    border-radius: 100%;
+  }
+}
