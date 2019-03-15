@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Workflow\Exception\TransitionException;
+use Symfony\Component\Workflow\Registry;
 
 /**
  * @Route("/acceptation")
@@ -84,5 +86,23 @@ class AcceptationController extends AbstractController
         return $this->redirectToRoute('backlog_show', [
             'id' => $backlogId,
         ]);
+    }
+
+    /**
+     * @Route("/apply-transition/{id}", name="acceptation_apply_transition", methods={"POST"})
+     */
+    public function applyTransitionAction(Request $request, Acceptation $acceptation, Registry $workflows)
+    {
+        $workflow = $workflows->get($acceptation);
+
+        try {
+            $workflow->apply($acceptation, $request->request->get('transition'));
+
+            $this->getDoctrine()->getManager()->flush();
+        } catch (TransitionException $exception) {
+            $this->addFlash('danger', $exception->getMessage());
+        }
+
+        return $this->redirectToRoute('backlog_show', ['id' => $acceptation->getBacklog()->getId()]);
     }
 }

@@ -36,6 +36,11 @@ class Acceptation
      */
     private $backlog;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,5 +80,17 @@ class Acceptation
         $this->backlog = $backlog;
 
         return $this;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
     }
 }

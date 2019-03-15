@@ -85,3 +85,38 @@ framework:
                     to:   abandoned
                     metadata:
                         title: Abandonner
+
+        acceptation:
+            type: 'workflow'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'single_state'
+                arguments:
+                    - 'status'
+            supports:
+                - App\Entity\Acceptation
+            initial_place: wait_check
+            places:
+                wait_check:
+                    metadata:
+                        title: A vérifier
+                accepted:
+                    metadata:
+                        title: Accepté
+                refused:
+                    metadata:
+                        title: Refusé
+            transitions:
+                accept:
+                    guard: "is_fully_authenticated()"
+                    from: wait_check
+                    to:   accepted
+                    metadata:
+                        title: Accepter
+                refuse:
+                    guard: "is_fully_authenticated()"
+                    from: wait_check
+                    to:   refused
+                    metadata:
+                        title: Refuser
