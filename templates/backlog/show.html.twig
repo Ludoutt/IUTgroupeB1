@@ -93,10 +93,26 @@
 
                         <tbody>
                         {% for acceptation in backlog.acceptations %}
-                            <tr>
+                            {% if workflow_has_marked_place(acceptation, 'accepted') %}
+                                <tr class="table-success">
+                            {% elseif workflow_has_marked_place(acceptation, 'refused') %}
+                                <tr class="table-danger">
+                            {% else %}
+                                <tr>
+                            {% endif %}
                                 <td>{{ acceptation.name }}</td>
                                 <td>{{ acceptation.description }}</td>
                                 <td class="text-right">
+                                    <form action="{{ path('acceptation_apply_transition', {id: acceptation.id}) }}" method="post">
+                                        <div class="btn-group" role="group">
+                                            {% for transition in workflow_transitions(acceptation) %}
+                                                <button type="submit" name="transition" value="{{ transition.name }}" class="btn btn-primary">
+                                                    {{ workflow_metadata(acceptation, 'title', transition) }}
+                                                </button>
+                                            {% endfor %}
+                                        </div>
+                                    </form>
+
                                     {% embed 'acceptation/_delete_form.html.twig' %}
                                         {% block buttons %}
                                             {{ parent() }}
