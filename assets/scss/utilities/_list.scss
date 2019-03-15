@@ -3,4 +3,12 @@ ul {
     padding: 0px;
   }
   padding-left: 25px;
+  li {
+    a {
+      color: white;
+      &:hover {
+        color: white;
+      }
+    }
+  }
 }
